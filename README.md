@@ -1,3 +1,7 @@
+
+[![Django CI](https://github.com/weslleycf/projeto-integrador/actions/workflows/django.yml/badge.svg?branch=main)](https://github.com/weslleycf/projeto-integrador/actions/workflows/django.yml)
+
+
 # PROJETO INTEGRADOR UNIVESP 4º SEMESTRE UNIVESP
 
 # Instalação do ambiente de desenvolvimento:
