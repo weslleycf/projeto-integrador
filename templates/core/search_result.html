@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<h1>Esse resultado da busca</h1>
+<ul>
+    {% for list_item in list %}
+    <p>{{list_item.name}}</p>
+    {% endfor %}
+</ul>
+{%endblock%}
+

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>{% block title %}{{ctx.page_title}}{% endblock %}</title>
+</head>
+
+<body>
+
+
+{% if messages %}
+{% for message in messages %}
+<div class="{{ message.tags }}">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+<section id="content">
+    {% block content %} {% endblock %}
+</section>
+
+
+</body>
+</html>
