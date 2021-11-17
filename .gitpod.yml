@@ -1,0 +1,3 @@
+tasks:
+  - name: Installing dependecies
+    command: pip install -r requeriments.txt
