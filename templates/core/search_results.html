@@ -2,13 +2,34 @@
 
 {% block content%}
 <h1>Search Results</h1>
-
+<br>
 <ul>
   {% for profile in object_list %}
     <li>
-       {{ profile.user.first_name }}
-        <p>{{ profile.profile_description}}</p>
-      <a href="{% url 'profile_detail' pk=profile.pk %}">Ver mais detalhes</a>
+     <article class="media">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img src="{{ profile.picture.url }}">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <strong>{{ profile.user.first_name }}</strong> <small>{{ profile.user.username }}</small>
+        <br>
+          {{profile.profile_description}}
+
+      </p>
+
+       <p>
+           <a href="{% url 'profile_detail' pk=profile.pk %}">Ver mais detalhes</a>
+       </p>
+    </div>
+
+  </div>
+
+</article>
+
     </li>
   {% endfor %}
 </ul>

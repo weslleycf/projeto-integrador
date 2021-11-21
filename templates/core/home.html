@@ -2,14 +2,7 @@
 {% load account socialaccount %}
 
 {% block content %}
-
-<p><a href="{% url 'account_login' %}">Login</a></p>
-<p><a href="{% url 'account_signup' %}">Signup</a></p>
-
-
-<h1>TESTE DE PAGINA INICIAL </h1>
-
-<form action="{% url 'search_results' %}" method="get">
+<form action="{% url 'search_results' %}" method="get" >
     <label for="uf">Estado: </label>
     <select name="uf" id="uf">
 
