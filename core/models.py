@@ -29,7 +29,7 @@ class Service(models.Model):
         verbose_name_plural = 'Serviços'
 
     def __str__(self):
-        return self.service
+        return self.name
 
 
 class PhoneNumber(models.Model):
@@ -75,8 +75,8 @@ class Profile(models.Model):
     services = models.ManyToManyField(Service, verbose_name='Serviço', blank=True, related_name='profiles')
     profile_description = models.TextField(max_length=500, verbose_name='Descrição', blank=True, null=True)
     social_number = models.CharField(max_length=11, verbose_name='CPF', unique=True, blank=True, null=True)
-    zip = models.CharField(max_length=8, verbose_name='CEP', blank=True, null=True)
-    street = models.CharField(max_length=100, verbose_name='Rua', blank=True, null=True)
+    zip_code = models.CharField(max_length=8, verbose_name='CEP', blank=True, null=True)
+    street = models.CharField(max_length=100, verbose_name='logradouro', blank=True, null=True)
     number = models.CharField(max_length=8, verbose_name='Número', blank=True, null=True)
     complement = models.CharField(max_length=100, verbose_name='Complemento', blank=True, null=True)
     district = models.CharField(max_length=100, verbose_name='Bairro', blank=True, null=True)

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<h1>Search Results</h1>
+
+<ul>
+  {% for profile in object_list %}
+    <li>
+      {{ profile.user.first_name }}
+        <p>{{ profile.profile_description}}</p>
+    </li>
+  {% endfor %}
+</ul>
+{%endblock%}
+

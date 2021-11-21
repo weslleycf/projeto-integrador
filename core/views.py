@@ -1,7 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.shortcuts import render, redirect
+from django.views.generic import ListView
 
 from .forms import UserUpdateForm, ProfileUpdateForm
 from .models import Profile
@@ -32,15 +34,16 @@ def profile(request):
     }
     return render(request, 'core/profile.html', context)
 
-def search(request, city='', value=''):
-    if value:
-        result = Profile.objects.filter(city=city, services=value)
-    else:
-        result = Profile.objects.all().filter(city=city)
-        print(result)
 
-    context = {
-        'result': result
-    }
+class SearchResultsView(ListView):
+    model = Profile
+    template_name = 'core/search_results.html'
 
-    return render(request, 'core/search_result.html', context)
+    def get_queryset(self):
+        estado = self.request.GET.get('uf')
+        cidade = self.request.GET.get('cidade')
+        search = self.request.GET.get('search')
+        return Profile.objects.filter(
+            Q(state__icontains=estado) & Q(city__icontains=cidade) & Q(services__name__icontains=search)
+        )
+
