@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<h2>{{ profile.user }}</h2>
+<p>{{ profile.profile_description }}</p>
+
+
+
+<h2 class="subtitle">Reviews</h2>
+
+        <div class="reviews-wrapper">
+            {% for review in profile.reviews.all %}
+                <div class="notification space-below">
+                    <h2>{{review.user.username}}</h2>
+                    <p>
+                        <strong>Data: </strong>{{ review.created|date:"d-m-Y" }},
+                        <strong>Estrelas: </strong>{{ review.stars }}
+                    </p>
+
+                    <h3>{{ review.content }}</h3>
+                    <p>{{ review.comment }}</p>
+                </div>
+            {% empty %}
+                <div class="notification space-below">
+                    Sem avaliações...
+                </div>
+            {% endfor %}
+        </div>
+
+{%endblock%}

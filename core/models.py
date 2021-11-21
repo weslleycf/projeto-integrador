@@ -3,7 +3,6 @@ from django.db import models
 from PIL import Image
 
 
-
 class Category(models.Model):
     name = models.CharField(max_length=30, unique=True, verbose_name='Categoria')
     description = models.TextField(max_length=250, verbose_name='Descrição')
@@ -56,11 +55,11 @@ class Profile(models.Model):
     STATES = (('AC', 'Acre'), ('AL', 'Alagoas'), ('AP', 'Amapá'), ('AM', 'Amazonas'), ('BA', 'Bahia'),
               ('CE', 'Ceará'), ('ES', 'Espírito Santo'), ('GO', 'Goiás'), ('MA', 'Maranhão'),
               ('MT', 'Mato Grosso'), ('MS', 'Mato Grosso do Sul'), ('MG', 'Minas Gerais'),
-              ('PA', 'Pará'), ('PB','Paraíba'), ('PR', 'Paraná'), ('PE', 'Pernambuco'), ('PI', 'Piauí'),
+              ('PA', 'Pará'), ('PB', 'Paraíba'), ('PR', 'Paraná'), ('PE', 'Pernambuco'), ('PI', 'Piauí'),
               ('RJ', 'Rio de Janeiro'), ('RN', 'Rio Grande do Norte'), ('RS', 'Rio Grande do Sul'),
               ('RO', 'Rondônia'), ('RR', 'Roraima'), ('SC', 'Santa Catarina'), ('SP', 'São Paulo'),
               ('SE', 'Sergipe'), ('TO', 'Tocantins'), ('DF', 'Distrito Federal'),
-            )
+              )
 
     GENDER = (
         ('M', 'Masculino'),
@@ -69,7 +68,8 @@ class Profile(models.Model):
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Usuário', related_name='profile')
-    picture = models.ImageField(verbose_name='Foto', null=True, blank=True, default='profile_pics/default.png', upload_to='profile_pics')
+    picture = models.ImageField(verbose_name='Foto', null=True, blank=True, default='profile_pics/default.png',
+                                upload_to='profile_pics')
     birth_date = models.DateField(verbose_name='Data de nascimento', blank=True, null=True)
     gender = models.CharField(max_length=1, choices=GENDER, verbose_name='Gênero', blank=True, null=True)
     services = models.ManyToManyField(Service, verbose_name='Serviço', blank=True, related_name='profiles')
@@ -85,12 +85,10 @@ class Profile(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
     modified = models.DateTimeField(auto_now=True, verbose_name='Modificado em')
 
-
-
-
     class Meta:
         verbose_name = 'Perfil'
         verbose_name_plural = 'Perfis'
+        ordering = ['created']
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -114,11 +112,18 @@ class Review(models.Model):
         (4, '4'),
         (5, '5')
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Usuário', related_name='reviews')
-    title = models.CharField(max_length=60, verbose_name='Título')
-    comment = models.TextField(max_length=250, verbose_name='Comentário')
-    rating = models.IntegerField(choices=RATING_VALUES, verbose_name='Nota')
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Perfil', related_name='reviews')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
+    title = models.CharField(max_length=60, verbose_name='Título', blank=True, null=True)
+    comment = models.TextField(max_length=250, verbose_name='Comentário', blank=True, null=True)
+    stars = models.IntegerField(choices=RATING_VALUES, verbose_name='Nota')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
+    modified = models.DateTimeField(auto_now=True, verbose_name='Modificado em')
 
     def __str__(self):
-        self.title
+        return self.title
 
+    class Meta:
+        verbose_name = 'Avaliação'
+        verbose_name_plural = 'Avaliações'
+        ordering = ['created']

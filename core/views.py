@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from .forms import UserUpdateForm, ProfileUpdateForm
 from .models import Profile
@@ -37,7 +37,10 @@ def profile(request):
 
 class SearchResultsView(ListView):
     model = Profile
+    paginate_by = 1
     template_name = 'core/search_results.html'
+
+
 
     def get_queryset(self):
         estado = self.request.GET.get('uf')
@@ -46,4 +49,10 @@ class SearchResultsView(ListView):
         return Profile.objects.filter(
             Q(state__icontains=estado) & Q(city__icontains=cidade) & Q(services__name__icontains=search)
         )
+
+
+class ProfileDetailView(DetailView):
+    model = Profile
+    template_name = 'core/profile_detail.html'
+
 
