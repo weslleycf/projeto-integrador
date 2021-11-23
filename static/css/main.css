@@ -1,5 +1,68 @@
-html {
+:root {
     font-size: 16px;
-    font-family: arial;
-    color: #c7c7c7;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+body{
+    background-color: rgb(241, 241, 241);
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.container{
+ max-width: 960px;
+ margin: 0 auto;
+}
+
+header{
+    padding: 32px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin-top: 32px;
+
+}
+
+input, select {
+    margin-top: 8px;
+    margin-bottom: 16px;
+    padding: 8px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+
+}
+
+
+button {
+    padding: 16px 32px;
+    font-size: 1.2rem;
+    color: white;
+    background-color: dodgerblue;
+    border: 15px;
+    padding: 15px;
+    width: 100%;
+    border-radius: 10px;
+
+}
+
+
+.primaryAction{
+    margin-top: 16px;
+}
+
+
+form > p {
+    display: flex;
+    flex-direction: column;
+    margin:0;
+}
+
+
