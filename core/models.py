@@ -37,7 +37,7 @@ class PhoneNumber(models.Model):
         ('CEL', 'Celular'),
     )
 
-    phone_number = models.CharField(max_length=11, verbose_name='Telefone', unique=True)
+    phone_number = models.CharField(max_length=11, verbose_name='Telefone')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='phone_numbers')
     type = models.CharField(max_length=3, choices=PHONE_TYPE, verbose_name='Tipo')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
