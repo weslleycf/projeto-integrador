@@ -1,9 +1,9 @@
 tasks:
-  - name: Installing dependecies
-    command: pip install -r requirements.txt
-
-  - name: Creating migrations
-    command: python manage.py makemigrations
-
-  - name: Migrating
-    command: python manage.py migrate
+  - name: Dependencies & Database
+    init: |
+      pip install - r requirements.txt
+      python manage.py makemigrations
+      python manage.py migrate
+      
+  - name: Run server
+    command: python manage.py runserver
