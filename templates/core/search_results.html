@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content%}
-<h1>Search Results</h1>
+<h1>Resultado da pesquisa</h1>
 <br>
 <ul>
   {% for profile in object_list %}
@@ -14,13 +14,10 @@
   </figure>
   <div class="media-content">
     <div class="content">
+        <h2>{{ profile.user.first_name }}</h2>
       <p>
-        <strong>{{ profile.user.first_name }}</strong> <small>{{ profile.user.username }}</small>
-        <br>
-          {{profile.profile_description}}
-
+        {{profile.profile_description}}
       </p>
-
        <p>
            <a href="{% url 'profile_detail' pk=profile.pk %}">Ver mais detalhes</a>
        </p>

@@ -37,7 +37,7 @@ def profile(request):
 
 class SearchResultsView(ListView):
     model = Profile
-    paginate_by = 1
+    paginate_by = 5
     template_name = 'core/search_results.html'
 
 

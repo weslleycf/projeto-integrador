@@ -3,17 +3,17 @@
 <html lang="pt-br">
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-    <title>{% block title %}{{ctx.page_title}}{% endblock %}</title>
+    <title>{% block title %}{{page_title}}{% endblock %}</title>
 </head>
 
 <body>
 
-<div class="container">
+
     <header>
-        
-        <div class="logo">
+        <section class="header-container">
+        <div class="logo-area">
                 
-                    <a href="{% url 'home' %}" class="title">HOME</a>
+                    <a href="{% url 'home' %}" class="title"><img src="{% static 'assets/logo.png'%}" alt="Logotipo" class="logo"></a>
                
     
         </div>
@@ -21,15 +21,18 @@
         <div class="auth">
                
                     {% if user.is_authenticated %}
-                        <p><span>Olá, {{ request.user }}</span> | <span><a href="{% url 'profile'%}">Meu Perfil</a></span> | <span><a href="{% url 'account_logout' %}">Sair</a></span></p>
+                        <p><span class="auth-item">Olá, {{ request.user }}</span>
+                            <span><a href="{% url 'profile'%}">Meu Perfil</a></span>
+                            <span><a href="{% url 'account_logout' %}">Sair</a></span></p>
                     {%else%}
-                        <p><a href="{% url 'account_login' %}">Entrar</a> | <a href="{% url 'account_signup' %}">Cadastre-se</a></p>
+                        <p><a href="{% url 'account_login' %}">Entrar</a><a href="{% url 'account_signup' %}">Cadastre-se</a></p>
                     {% endif %}
                 
         </div>
 
-
-    </header>
+    </section>
+</header>
+<div class="container">
 <section class="content">
          {% if messages %}
         {% for message in messages %}
