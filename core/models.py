@@ -9,12 +9,13 @@ class Category(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
     modified = models.DateTimeField(auto_now=True, verbose_name='Modificado em')
 
+
+    def __str__(self) -> str:
+        return str(self.name) 
+
     class Meta:
         verbose_name = 'Catergoria'
         verbose_name_plural = 'Categorias'
-
-    def __str__(self):
-        return self.name
 
 
 class Service(models.Model):
@@ -23,12 +24,15 @@ class Service(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
     modified = models.DateTimeField(auto_now=True, verbose_name='Modificado em')
 
+    def __str__(self):
+        return str(self.name)
+
+
+
     class Meta:
         verbose_name = 'Serviço'
         verbose_name_plural = 'Serviços'
 
-    def __str__(self):
-        return self.name
 
 
 class PhoneNumber(models.Model):
@@ -43,12 +47,14 @@ class PhoneNumber(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
     modified = models.DateTimeField(auto_now=True, verbose_name='Modificado em')
 
+    def __str__(self):
+        return str(self.phone_number)
+
     class Meta:
         verbose_name = 'Telefone'
         verbose_name_plural = 'Telefones'
 
-    def __str__(self):
-        return self.phone_number
+
 
 
 class Profile(models.Model):
@@ -75,6 +81,7 @@ class Profile(models.Model):
     services = models.ManyToManyField(Service, verbose_name='Serviço', blank=True, related_name='profiles')
     profile_description = models.TextField(max_length=500, verbose_name='Descrição', blank=True, null=True)
     social_number = models.CharField(max_length=11, verbose_name='CPF', unique=True, blank=True, null=True)
+    phone_number = models.CharField(max_length=11, verbose_name='Telephone', blank=True, null=True)
     zip_code = models.CharField(max_length=8, verbose_name='CEP', blank=True, null=True)
     street = models.CharField(max_length=100, verbose_name='logradouro', blank=True, null=True)
     number = models.CharField(max_length=8, verbose_name='Número', blank=True, null=True)
@@ -85,13 +92,8 @@ class Profile(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
     modified = models.DateTimeField(auto_now=True, verbose_name='Modificado em')
 
-    class Meta:
-        verbose_name = 'Perfil'
-        verbose_name_plural = 'Perfis'
-        ordering = ['created']
-
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f'{self.user} Profile'
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -101,7 +103,14 @@ class Profile(models.Model):
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
             img.thumbnail(output_size)
-            img.save(self.picture.path)
+            img.save(self.picture.path) 
+ 
+    class Meta:
+        verbose_name = 'Perfil'
+        verbose_name_plural = 'Perfis'
+        ordering = ['created']
+
+
 
 
 class Review(models.Model):
@@ -121,7 +130,7 @@ class Review(models.Model):
     modified = models.DateTimeField(auto_now=True, verbose_name='Modificado em')
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
     class Meta:
         verbose_name = 'Avaliação'

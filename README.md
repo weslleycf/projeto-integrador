@@ -4,7 +4,7 @@
 
 # PROJETO INTEGRADOR UNIVESP 4º SEMESTRE UNIVESP
 
-##Instalação do ambiente de desenvolvimento:
+## Instalação do ambiente de desenvolvimento:
 
  - Instalar o [Python](https://www.python.org/ftp/python/3.10.0/python-3.10.0-amd64.exe)
  - Criar de um ambiente virtual de desenvolvimento com o comando `python -m venv [caminho]`
@@ -19,7 +19,7 @@
   - Para acessar a pagina administrativa do site acesse http://127.0.0.1:8000/admin e faça o login com o usuario administrador criado anteriormente.
 
 
-##Gitpod
+## Gitpod
 
   
 - É possivel executar esse projeto na nuvem pelo [gitpod.io](https://gitpod.io/#https://github.com/weslleycf/projeto-integrador), só é necessário fazer o login com uma conta do github, depois de o ambiente de desenvolvimento abrir bastar abrir um novo terminal e executar o comando `pip install -r requirements.txt` para instalar as dependências, o gitpod é gratuito e disponibiliza 50 horas de uso por mês para contas gratuitas.   

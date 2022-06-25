@@ -54,5 +54,6 @@ class SearchResultsView(ListView):
 class ProfileDetailView(DetailView):
     model = Profile
     template_name = 'core/profile_detail.html'
+    
 
 
