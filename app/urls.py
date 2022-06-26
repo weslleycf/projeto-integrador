@@ -16,16 +16,29 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
+from rest_framework import routers
+from api import views
 
 from django.urls import path, include
+
+
+router = routers.DefaultRouter()
+router.register(r'category', views.CategoryViewSet)
+router.register(r'phone-number', views.PhoneNumberViewSet)
+router.register(r'profile', views.ProfileViewSet)
+router.register(r'review', views.ReviewViewSet)
+router.register(r'service', views.ServiceViewSet)
+router.register(r'user', views.UserViewSet, basename='user')
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('accounts/', include('allauth.urls')), # < allauth
-
+    path('api/v1/', include(router.urls)),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
