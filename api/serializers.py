@@ -1,6 +1,5 @@
 from copyreg import pickle
 
-from attr import fields
 from core import models
 from django.contrib.auth.models import User
 from rest_framework import serializers
