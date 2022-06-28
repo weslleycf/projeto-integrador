@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'allauth.account',  # < allauth
     'allauth.socialaccount',  # < allauth
     'core',
+    'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [
