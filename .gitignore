@@ -7,7 +7,7 @@ db.sqlite3
 media
 *pycache*
 assets/
-.envs/
+
 
 
 # Backup files # 
