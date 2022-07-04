@@ -33,6 +33,8 @@ router.register(r'user', views.UserViewSet, basename='user')
 
 
 urlpatterns = [
+    path('auth/',include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('accounts/', include('allauth.urls')), # < allauth

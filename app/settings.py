@@ -11,15 +11,19 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+import environ
 
-
-# Configure Django App for Heroku.
-# import django_heroku
-# django_heroku.settings(locals())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+env = environ.Env()
+
+READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
+if READ_DOT_ENV_FILE:
+    # OS environment variables take precedence over variables from .env
+    env.read_env(str(BASE_DIR / ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -30,7 +34,7 @@ SECRET_KEY = 'django-insecure-l3jg#0vl0jkfae*qy^=kx_si0*4=#5=@%4kp7kbe%ce@=d#w_)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 
 
 # Application definition
@@ -48,7 +52,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount',  # < allauth
     'core',
     'rest_framework',
+    'djoser',
+    'rest_framework_simplejwt',
     'api',
+    
 ]
 
 MIDDLEWARE = [
@@ -61,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 
@@ -97,6 +105,16 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+
+
+# DATABASES
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#databases
+# DATABASES = {"default": env.db("DATABASE_URL")}
+# DATABASES["default"]["ATOMIC_REQUESTS"] = True
+# # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
+# DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 DATABASES = {
     'default': {
@@ -157,7 +175,69 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# CACHES
+# ------------------------------------------------------------------------------
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        # "LOCATION": env("REDIS_URL"),
+        # "OPTIONS": {
+        #     "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        #     # Mimicing memcache behavior.
+        #     # https://github.com/jazzband/django-redis#memcached-exceptions-behavior
+        #     "IGNORE_EXCEPTIONS": True,
+        # },
+    }
+}
+
+
+
+# LOGGING
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#logging
+# See https://docs.djangoproject.com/en/dev/topics/logging for
+# more details on how to customize your logging configuration.
+# A sample logging configuration. The only tangible logging
+# performed by this configuration is to send an email to
+# the site admins on every HTTP 500 error when DEBUG=False.
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+    "formatters": {
+        "verbose": {
+            "format": "%(levelname)s %(asctime)s %(module)s "
+            "%(process)d %(thread)d %(message)s"
+        }
+    },
+    "handlers": {
+        "mail_admins": {
+            "level": "ERROR",
+            "filters": ["require_debug_false"],
+            "class": "django.utils.log.AdminEmailHandler",
+        },
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+    "root": {"level": "INFO", "handlers": ["console"]},
+    "loggers": {
+        "django.request": {
+            "handlers": ["mail_admins"],
+            "level": "ERROR",
+            "propagate": True,
+        },
+        "django.security.DisallowedHost": {
+            "level": "ERROR",
+            "handlers": ["console", "mail_admins"],
+            "propagate": True,
+        },
+    },
+}
 
 
 # Custom settings _____________________________________________________________
@@ -167,3 +247,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGIN_URL = '/accounts/login/'
+
+
+#Djoser ---------------------------------------------------
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',      
+    ),
+}
+
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+}
+
+
+# Djoser Serializers -----------------------------
+DJOSER = {
+    'SERIALIZERS': {
+        'user_create': 'core.serializers.UserCreateSerializer',
+    }
+}
