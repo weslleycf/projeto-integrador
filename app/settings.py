@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'core',
     'rest_framework',
     'api',
+    'django_components',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +80,7 @@ TEMPLATES = [
             'templates',
             'templates/allauth',
         ],
-        'APP_DIRS': True,
+        # 'APP_DIRS': True, ### Comentado para configuração do django-components
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -88,7 +89,18 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
             ],
+             'loaders':[(
+                'django.template.loaders.cached.Loader', [
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                    'django_components.template_loader.Loader',
+                ]
+            )],
+            'builtins': [
+                'django_components.templatetags.component_tags',
+            ]
         },
+        
     },
 ]
 
@@ -147,6 +159,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
+    BASE_DIR / "components",
 ]
 
 STATIC_ROOT = "assets/"
