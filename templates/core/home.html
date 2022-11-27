@@ -2,7 +2,7 @@
 {% load account socialaccount %}
 
 {% block content %}
-<form action="{% url 'search_results' %}" method="get" >
+<form hx-get="{% url 'search_results' %}" hx-swap="outerHTML" hx-push-url="true" hx-indicator=".spinner">
     <label for="uf">Estado: </label>
     <select name="uf" id="uf">
 
@@ -69,5 +69,11 @@
     <button type="submit">Procurar</button>
 
 </form>
+<svg class="spinner" viewBox="0 0 50 50">
+    <circle class="path" cx="25" cy="25" r="20" stroke-width="5" fill="none"></circle>
+  </svg>
+<script>
+
+</script>
 
 {% endblock content%}
