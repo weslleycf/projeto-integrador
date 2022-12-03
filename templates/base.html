@@ -1,16 +1,47 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt-br">
+<html data-theme="light" lang="pt-br">
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/spinner.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.42.1/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <script defer src="https://unpkg.com/htmx.org@1.8.4"></script>
     <title>{% block title %}{{page_title}}{% endblock %}</title>
 </head>
 
-<body>
+<body  hx-boost="true">
 
-
+    <div class="navbar bg-base-100">
+        <div class="flex-1">
+            <a href="{% url 'home' %}" class="title"><img src="{% static 'assets/logo.png'%}" alt="Logotipo" class="logo"></a>
+        </div>
+        <div class="flex-none">
+          <ul class="menu menu-horizontal p-0">
+            <li><a>Item 1</a></li>
+            <li tabindex="0">
+              <a>
+                Olá, {{ request.user }}
+                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+              </a>
+              <ul class="p-2 bg-base-100">
+                <li><a href="{% url 'profile'%}">Meu Perfil</a></li>
+                <li><a href="{% url 'account_logout' %}">Sair</a></li>>
+              </ul>
+            </li>
+            <li><a>Item 3</a></li>
+            {% if user.is_authenticated %}
+                <li><span>Olá, {{ request.user }}</span></li>
+                <li><a href="{% url 'profile'%}">Meu Perfil</a></li>
+                <li><a href="{% url 'account_logout' %}">Sair</a></li>>
+            {%else%}
+                <li><a href="{% url 'account_login' %}">Entrar</a><a href="{% url 'account_signup' %}">Cadastre-se</a></li>
+            {% endif %}
+            </li>
+          </ul>
+        </div>
+      </div>    
     <header>
         <section class="header-container">
         <div class="logo-area">

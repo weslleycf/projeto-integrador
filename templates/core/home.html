@@ -2,7 +2,7 @@
 {% load account socialaccount %}
 
 {% block content %}
-<form hx-get="{% url 'search_results' %}" hx-swap="outerHTML" hx-push-url="true" hx-indicator=".spinner">
+<form hx-get="{% url 'search_results' %}" hx-swap="outerHTML" hx-push-url="true" >
     <label for="uf">Estado: </label>
     <select name="uf" id="uf">
 

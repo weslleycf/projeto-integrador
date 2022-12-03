@@ -290,8 +290,12 @@ article.media{
 }
 
 .logo{
+    max-width: 80px;
+    max-height: 80px;
     border-radius: 0px;
     box-shadow: none;
     object-fit: contain;
     margin: 0px;
+    height: 60px;
+    width: 60px;
 }
