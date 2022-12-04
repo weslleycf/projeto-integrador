@@ -110,7 +110,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-
+print(os.getenv('PGDATABASE'))
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
