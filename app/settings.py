@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'django_components',
+   
 ]
 
 MIDDLEWARE = [
@@ -99,8 +100,7 @@ TEMPLATES = [
             'builtins': [
                 'django_components.templatetags.component_tags',
             ]
-        },
-        
+        },   
     },
 ]
 

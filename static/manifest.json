@@ -1,0 +1,10 @@
+{
+    "name": "Projeto Integrador",
+    "short_name": "PI",
+    "theme_color": "#fff",
+    "background_color": "#fff",
+    "display": "fullScreen",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/"
+}
